@@ -1,0 +1,32 @@
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.page-size-select {
+  margin-right: 1rem;
+}
+
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.prev-button,
+.next-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.prev-button[disabled],
+.next-button[disabled] {
+  background-color: #ced4da;
+  cursor: not-allowed;
+}

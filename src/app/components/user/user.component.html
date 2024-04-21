@@ -10,11 +10,15 @@
     <h3 class="text-xl font-bold mb-2">Repositories</h3>
     <ul>
       <li *ngFor="let repo of userRepos" class="text-gray-700">
-        <!-- Link to the user's GitHub repository -->
         <a [href]="repo.html_url" target="_blank">{{ repo.name }}</a> - {{ repo.description }}
       </li>
     </ul>
   </div>
+
+  <!-- Display UserRepositoriesComponent if user is found -->
+  <ng-container *ngIf="userInfo">
+    <app-user-repositories [username]="username" [totalPublicRepos]="userInfo.public_repos"></app-user-repositories>
+  </ng-container>
 
   <!-- Display a message if the username is not found -->
   <div *ngIf="userInfo === null" class="text-red-500">User not found.</div>

@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { SearchFormComponent } from './components/search-form/search-form.component';
 import { UserComponent } from './components/user/user.component';
 import { UserRepositoriesComponent } from './components/user-repositories/user-repositories.component';
+import { PaginationPipe } from './pagination.pipe';
 
 @NgModule({
-  declarations: [AppComponent, SearchFormComponent, UserComponent, UserRepositoriesComponent],
+  declarations: [AppComponent, SearchFormComponent, UserComponent, UserRepositoriesComponent, PaginationPipe],
   imports: [
     BrowserModule,
     AppRoutingModule,
