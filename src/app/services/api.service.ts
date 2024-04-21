@@ -8,7 +8,7 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly githubToken = environment.githubToken; // Replace with your GitHub token
+  private readonly githubToken = process.env.githubToken; // Replace with your GitHub token
 
   constructor(private httpClient: HttpClient) {}
 
