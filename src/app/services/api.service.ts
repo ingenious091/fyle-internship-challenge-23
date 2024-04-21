@@ -2,12 +2,13 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly githubToken = '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'; // Replace with your GitHub token
+  private readonly githubToken = environment.githubToken; // Replace with your GitHub token
 
   constructor(private httpClient: HttpClient) {}
 
