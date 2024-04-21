@@ -1,16 +1,36 @@
-<div *ngIf="isLoading" class="text-center">Loading repositories...</div>
-
-<div *ngIf="!isLoading && userRepos && userRepos.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  <div *ngFor="let repo of userRepos" class="bg-white shadow-md rounded-lg p-4">
-    <h3 class="text-lg font-bold mb-2">{{ repo.name }}</h3>
-    <p class="text-gray-700">{{ repo.description }}</p>
-    <a [href]="repo.html_url" target="_blank" class="text-blue-500 hover:underline mt-2 block">View on GitHub</a>
+<div *ngIf="isLoading" class="text-center">
+  <div class="flex flex-wrap justify-center">
+    <!-- Skeleton loader cards -->
+    <div class="bg-gray-300 shadow-md rounded-lg p-4 w-64 h-32 m-2 animate-pulse"></div>
+    <div class="bg-gray-300 shadow-md rounded-lg p-4 w-64 h-32 m-2 animate-pulse"></div>
+    <div class="bg-gray-300 shadow-md rounded-lg p-4 w-64 h-32 m-2 animate-pulse"></div>
+    
+  </div>
+  <div class="flex flex-wrap justify-center">
+    <!-- Skeleton loader cards -->
+    <div class="bg-gray-300 shadow-md rounded-lg p-4 w-64 h-32 m-2 animate-pulse"></div>
+    <div class="bg-gray-300 shadow-md rounded-lg p-4 w-64 h-32 m-2 animate-pulse"></div>
+    <div class="bg-gray-300 shadow-md rounded-lg p-4 w-64 h-32 m-2 animate-pulse"></div>
+    
   </div>
 </div>
 
-<div *ngIf="!isLoading && (!userRepos || userRepos.length === 0)" class="text-center">No repositories found.</div>
+<div *ngIf="!isLoading && userRepos && userRepos.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div *ngFor="let repo of userRepos" class="bg-gray-300 shadow-md rounded-lg p-4">
+    <h3 class="text-lg font-bold mb-2">
+      <a [href]="repo.html_url" target="_blank" class="text-blue-500 hover:underline mt-2 block">{{ repo.name }}</a>
+    </h3>
+    <p class="text-gray-700">{{ repo.description }}</p>
+    <div class="mt-2">
+      <span *ngFor="let topic of repo.topics" class="text-blue-500 mr-2 px-2 py-1 bg-gray-700 rounded">{{ topic }}</span>
+    </div>
+  </div>
+</div>
 
-<!-- Pagination controls -->
+<div *ngIf="!isLoading && (!userRepos || userRepos.length === 0)" class="text-center">
+  No repositories found.
+</div>
+
 <div *ngIf="!isLoading && userRepos" class="flex justify-between items-center mt-4">
   <div class="flex items-center">
     <label class="mr-2">Repositories per page:</label>
@@ -19,8 +39,12 @@
     </select>
   </div>
   <div class="flex items-center">
-    <button (click)="prevPage()" class="bg-blue-500 text-white py-1 px-2 rounded-md mr-2" [disabled]="currentPage === 1">Previous</button>
+    <button (click)="prevPage()" class="bg-blue-500 text-white py-1 px-2 rounded-md mr-2" [disabled]="currentPage === 1">
+      Previous
+    </button>
     <span class="mr-2">{{ currentPage }} / {{ totalPages }}</span>
-    <button (click)="nextPage()" class="bg-blue-500 text-white py-1 px-2 rounded-md" [disabled]="currentPage === totalPages">Next</button>
+    <button (click)="nextPage()" class="bg-blue-500 text-white py-1 px-2 rounded-md" [disabled]="currentPage === totalPages">
+      Next
+    </button>
   </div>
 </div>

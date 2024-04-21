@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service'; // Import your API service
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
   username!: string;
@@ -13,11 +14,15 @@ export class UserComponent implements OnInit {
   userRepos!: any[];
   isValidUsername!: boolean;
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // Get the username from the route parameter
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       console.log(params);
       this.username = params['username'];
       // Fetch user information and repositories using the service
@@ -28,7 +33,10 @@ export class UserComponent implements OnInit {
         },
         (error) => {
           console.error('Error getting user info:', error);
+
           this.isValidUsername = false;
+          this.router.navigate(['/search'], { queryParams: { userNotFound: true } });
+
         }
       );
     });

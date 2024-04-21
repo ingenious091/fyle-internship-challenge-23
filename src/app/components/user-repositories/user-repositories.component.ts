@@ -12,7 +12,7 @@ export class UserRepositoriesComponent implements OnInit {
   userRepos!: any[];
   isLoading: boolean = true;
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 10;
   pageSizeOptions: number[] = [5, 10, 20, 50, 100]; // Page size options
 
   constructor(private apiService: ApiService) {}
@@ -38,7 +38,7 @@ export class UserRepositoriesComponent implements OnInit {
   }
 
   get totalPages(): number {
-    return Math.ceil(this.totalPublicRepos/ this.itemsPerPage);
+    return Math.ceil(this.totalPublicRepos / this.itemsPerPage);
   }
 
   nextPage() {

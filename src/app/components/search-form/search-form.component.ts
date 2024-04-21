@@ -1,21 +1,25 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-form',
   templateUrl: './search-form.component.html',
   styleUrls: ['./search-form.component.scss'],
 })
-export class SearchFormComponent {
+export class SearchFormComponent implements OnInit {
   username: string = '';
   isApiLoading: boolean = false;
-  @Output() searchUser = new EventEmitter<string>();
+  userNotFound: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.userNotFound = params['userNotFound'] === 'true';
+    });
   }
 
   search() {
-    console.log(this.username);
     this.router.navigate(['/user', this.username]);
   }
 }

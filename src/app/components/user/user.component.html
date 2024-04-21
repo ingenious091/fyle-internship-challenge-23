@@ -1,8 +1,45 @@
 <div class="container mx-auto py-4">
-  <!-- Display user profile image and username -->
-  <div *ngIf="userInfo" class="mb-4">
-    <h2 class="text-2xl font-bold">{{ userInfo.login }}</h2>
-    <img [src]="userInfo.avatar_url" alt="User Avatar" class="w-20 h-20 rounded-full mt-2">
+  <!-- User Profile Section -->
+  <div
+    *ngIf="userInfo"
+    class="flex justify-center mb-4 border border-gray-300 bg-gradient-to-br from-pink-500 to-green-400 p-4 rounded-lg"
+  >
+    <!-- Profile Image and Username -->
+    <div class="flex-shrink-0 mr-4">
+      <img
+        [src]="userInfo.avatar_url"
+        alt="User Avatar"
+        class="w-40 h-40 rounded-full hover:scale-110 transition duration-300"
+      />
+      <h2 class="text-2xl font-bold mt-2 text-center text-blue-500">
+        <a
+          [href]="'https://github.com/' + userInfo.login"
+          target="_blank"
+          class="underline"
+        >
+          {{ userInfo.login }}
+        </a>
+      </h2>
+    </div>
+
+    <!-- User Details -->
+    <div>
+      <h3 class="text-xl font-bold mb-1">{{ userInfo.name }}</h3>
+      <p class="text-lg text-gray-700 mb-1">{{ userInfo.bio }}</p>
+      <p class="text-lg text-gray-700 mb-1">{{ userInfo.location }}</p>
+      <p class="text-lg text-gray-700">
+        Twitter:
+        <a
+          *ngIf="userInfo.twitter_username"
+          [href]="'https://twitter.com/' + userInfo.twitter_username"
+          target="_blank"
+          class="underline"
+        >
+          {{ userInfo.twitter_username }}
+        </a>
+        <span *ngIf="!userInfo.twitter_username">Not available</span>
+      </p>
+    </div>
   </div>
 
   <!-- Display list of user repositories -->
@@ -10,14 +47,18 @@
     <h3 class="text-xl font-bold mb-2">Repositories</h3>
     <ul>
       <li *ngFor="let repo of userRepos" class="text-gray-700">
-        <a [href]="repo.html_url" target="_blank">{{ repo.name }}</a> - {{ repo.description }}
+        <a [href]="repo.html_url" target="_blank">{{ repo.name }}</a> -
+        {{ repo.description }}
       </li>
     </ul>
   </div>
 
   <!-- Display UserRepositoriesComponent if user is found -->
   <ng-container *ngIf="userInfo">
-    <app-user-repositories [username]="username" [totalPublicRepos]="userInfo.public_repos"></app-user-repositories>
+    <app-user-repositories
+      [username]="username"
+      [totalPublicRepos]="userInfo.public_repos"
+    ></app-user-repositories>
   </ng-container>
 
   <!-- Display a message if the username is not found -->
