@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import * as e from 'cors';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,27 @@ export class ApiService {
     private httpClient: HttpClient
   ) { }
 
-  getUser(githubUsername: string) {
-    return this.httpClient.get(`https://api.github.com/users/${githubUsername}`);
+  getUserInfo(githubUsername: string) {
+    console.log(githubUsername);
+    console.log('here');
+    return this.httpClient.get(`https://api.github.com/users/${githubUsername}`)
+      .pipe(
+        catchError(error => {
+          // Handle error here if necessary
+          console.error('Error getting user info:', error);
+          return throwError('Failed to fetch user info');
+        })
+      );
   }
 
-  // implement getRepos method by referring to the documentation. Add proper types for the return type and params 
+  getUserRepos(githubUsername: string) {
+    return this.httpClient.get(`https://api.github.com/users/${githubUsername}/repos`)
+      .pipe(
+        catchError(error => {
+          // Handle error here if necessary
+          console.error('Error getting user repos:', error);
+          return throwError('Failed to fetch user repositories');
+        })
+      );
+  }
 }

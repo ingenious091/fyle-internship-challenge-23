@@ -1,0 +1,21 @@
+<div class="container mx-auto py-4">
+  <!-- Display user profile image and username -->
+  <div *ngIf="userInfo" class="mb-4">
+    <h2 class="text-2xl font-bold">{{ userInfo.login }}</h2>
+    <img [src]="userInfo.avatar_url" alt="User Avatar" class="w-20 h-20 rounded-full mt-2">
+  </div>
+
+  <!-- Display list of user repositories -->
+  <div *ngIf="userRepos && userRepos.length > 0">
+    <h3 class="text-xl font-bold mb-2">Repositories</h3>
+    <ul>
+      <li *ngFor="let repo of userRepos" class="text-gray-700">
+        <!-- Link to the user's GitHub repository -->
+        <a [href]="repo.html_url" target="_blank">{{ repo.name }}</a> - {{ repo.description }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Display a message if the username is not found -->
+  <div *ngIf="userInfo === null" class="text-red-500">User not found.</div>
+</div>
