@@ -8,17 +8,17 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly githubToken = process.env.githubToken; // Replace with your GitHub token
+  // private readonly githubToken = process.env.githubToken; // Replace with your GitHub token
 
   constructor(private httpClient: HttpClient) {}
 
   getUserInfo(githubUsername: string) {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `token ${this.githubToken}`
-    );
+    // const headers = new HttpHeaders().set(
+    //   'Authorization',
+    //   `token ${this.githubToken}`
+    // );
     return this.httpClient
-      .get(`https://api.github.com/users/${githubUsername}`, { headers })
+      .get(`https://api.github.com/users/${githubUsername}`)
       .pipe(
         catchError((error) => {
           console.error('Error getting user info:', error);
@@ -28,17 +28,16 @@ export class ApiService {
   }
 
   getUserRepos(username: string, page: number, perPage: number) {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      `token ${this.githubToken}`
-    );
+    // const headers = new HttpHeaders().set(
+    //   'Authorization',
+    //   `token ${this.githubToken}`
+    // );
     const params = new HttpParams()
       .set('page', page.toString())
       .set('per_page', perPage.toString());
 
     return this.httpClient
       .get(`https://api.github.com/users/${username}/repos`, {
-        headers,
         params,
       })
       .pipe(
