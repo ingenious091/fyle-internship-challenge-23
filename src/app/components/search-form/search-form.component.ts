@@ -11,7 +11,7 @@ export class SearchFormComponent implements OnInit {
   isApiLoading: boolean = false;
   userNotFound: boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(public router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

@@ -25,16 +25,16 @@ export class UserRepositoriesComponent implements OnInit {
     this.isLoading = true;
     this.apiService
       .getUserRepos(this.username, this.currentPage, this.itemsPerPage)
-      .subscribe(
-        (data: any) => {
+      .subscribe({
+        next: (data: any) => {
           this.userRepos = data;
           this.isLoading = false;
         },
-        (error) => {
+        error: (error) => {
           console.error('Error getting user repositories:', error);
           this.isLoading = false;
-        }
-      );
+        },
+      });
   }
 
   get totalPages(): number {
